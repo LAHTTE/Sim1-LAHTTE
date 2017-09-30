@@ -1,25 +1,29 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package sim1.lahtte;
 
 /**
- * 
- * 
- * @author
- * @version 
+ *
+ * @author bernard
  */
 public class Tp2 {
+
 
     public static char lireOuiNon () {
         
         char reponse;
         
         System.out.print ( "Voulez-vous jouer une partie ? " );
-        reponse = Clavier.lireChar ();
-        Clavier.lireFinLigne ();  
+        reponse = sim1.lahtte.Clavier.lireChar ();
+        sim1.lahtte.Clavier.lireFinLigne ();  
         
         while ( reponse != 'o' && reponse != 'n' ) {
             System.out.print ( "*** vous devez repondre par o ou n : " );
-            reponse = Clavier.lireChar ();
-            Clavier.lireFinLigne ();
+            reponse = sim1.lahtte.Clavier.lireChar ();
+            sim1.lahtte.Clavier.lireFinLigne ();
         }
         
         return reponse;
@@ -31,26 +35,31 @@ public class Tp2 {
         
         System.out.println ( "Quel pari voulez-vous faire ?" );
         System.out.print ( " 1 : paire, 2 : sequence, 3 : meme couleur, 4 : somme inferieure ou egale a 7 => " );
-        reponse = Clavier.lireInt (); 
+        reponse = sim1.lahtte.Clavier.lireInt (); 
         
         while ( reponse != 1 && reponse != 2 && reponse != 3 && reponse != 4 ) {
             System.out.print ( "*** vous devez repondre par 1, 2, 3 ou 4 : " );
-            reponse = Clavier.lireInt ();
+            reponse = sim1.lahtte.Clavier.lireInt ();
         }
         
         return reponse;
     } // lireSortePari
+    
+        //Afficher message
+        public static void messageDeCoutPige () {
+        System.out.print ( "Coût d'une pige de cartes est 3$ et\nle montant doit etre superieur a 3.\n");
+    } // messageDeCoutPige
     
     public static int lireMontantJoueur () {
     
         int reponse;
         
         System.out.print ( "Entrez le montant dont vous disposez : " );
-        reponse = Clavier.lireInt();
+        reponse = sim1.lahtte.Clavier.lireInt();
         
-        while ( reponse <= 0 ) {
-            System.out.print ( "*** Le montant doit etre superieur a 0 : " );
-            reponse = Clavier.lireInt();
+        while ( reponse <= 3 ) {
+            System.out.print ( "*** Le montant doit etre superieur a 3 : " );
+            reponse = sim1.lahtte.Clavier.lireInt();
         }
         
         return reponse;
@@ -61,11 +70,11 @@ public class Tp2 {
         int reponse;
         
         System.out.print ( "Entrez le montant de la mise ( maximum : " + max + " ) : " );
-        reponse = Clavier.lireInt();
+        reponse = sim1.lahtte.Clavier.lireInt();
         
         while ( reponse < 0 || reponse > max ) {
             System.out.print ( "*** Le montant doit etre entre 0 et " + max + " : " );
-            reponse = Clavier.lireInt();
+            reponse = sim1.lahtte.Clavier.lireInt();
         }
         
         return reponse;
@@ -182,6 +191,24 @@ public class Tp2 {
         return reponse;
     } // chaineCouleur
     
+        public static String symboleChaineCouleur ( int carte ) {
+        
+        String reponse;
+        
+        int couleur = laCouleur ( carte );
+        if (couleur == 0) {
+            reponse = "\u2665";
+        } else if (couleur == 1) {
+            reponse = "\u2666";
+        } else if (couleur == 2) {
+            reponse = "\u2663";
+        } else {
+            reponse = "\u2660";
+        }
+        
+        return reponse;
+    } // chaineCouleur
+    
     public static String chaineSorte ( int carte ) {
         
         String reponse;
@@ -202,25 +229,65 @@ public class Tp2 {
         return reponse;
     } // chaineCouleur
     
+    public static String symboleChaineSorte ( int carte ) {
+        
+        String reponse;
+        
+        int sorte = laSorte ( carte );
+        if (sorte == 0) {
+            reponse = "A";
+        } else if (sorte == 10) {
+            reponse = "J";
+        } else if (sorte == 11) {
+            reponse = "Q";
+        } else if (sorte == 12) {
+            reponse = "K";
+        } else {
+            reponse = String.valueOf ( sorte + 1 );
+        }
+        
+        return reponse;
+    } // chaineCouleur
+    
     public static void afficherCarte ( int carte ) { 
 
     /* ant�c�dent : 0 <= carte <= 51
      * cons�quent : Affiche la carte selon sa couleur et sa valeur
      */
-    
         System.out.print ( chaineSorte ( carte ) + " " + chaineCouleur ( carte ) );
         
+        
     } // afficherCarte
+    
+    /*
+    * Afficher la graphie des cartes
+    @param int l'index de la carte
+    */
+    public static void afficherCarteGraphicSimple(int carte) {
+        String sorte = symboleChaineSorte(carte);
+        String couleur = symboleChaineCouleur(carte);
+        System.out.println(
+                "\n┌─────────┐"
+                + "\n│ " + sorte + "       │"
+                + "\n│         │"
+                + "\n│         │"
+                + "\n│    " + couleur + "    │"
+                + "\n│         │"
+                + "\n│         │"
+                + "\n│       " + sorte + " │"
+                + "\n└─────────┘"
+                + "\n");
+    }
     
     public static void afficherLesDeuxCartes ( int carte1, int carte2 ) {
                           
         System.out.print ( "Voici la premiere carte : " );
         afficherCarte ( carte1 );
-        System.out.println ();
+        afficherCarteGraphicSimple( carte1 );
             
         System.out.print ( "Voici la deuxieme carte : " );
         afficherCarte ( carte2 );
-        System.out.println ( '\n' );
+        afficherCarteGraphicSimple( carte2 );
             
     } // afficherLesDeuxCartes
 
@@ -234,10 +301,20 @@ public class Tp2 {
     public static void initialiserJeuDeCarte () {
         
         System.out.print ( "Entrez un nombre entier pour initialiser le jeu : " );
-        JeuDeCartes.initialiserJeuDeCarte ( Clavier.lireInt () );
+        sim1.lahtte.JeuDeCartes.initialiserJeuDeCarte ( sim1.lahtte.Clavier.lireInt () );
         System.out.println ();
         
     } // initialiserJeuDeCarte
+    
+    /*
+     Reduit la montant par 3$
+    @param int montant a reduit
+    @return retourne la montant restant
+    */
+    public static int  reduitMontantDe3 (int montant) {
+        return montant-3;
+    }
+    
 
     public static void main ( String[] parametres ) {
                 
@@ -258,7 +335,7 @@ public class Tp2 {
         initialiserJeuDeCarte ();
                 
         // Saisir et valider le montant initial du joueur
-        
+        messageDeCoutPige();
         montantJoueur = lireMontantJoueur ();
         System.out.println ();
         
@@ -267,12 +344,19 @@ public class Tp2 {
         reponse = lireOuiNon ();
         System.out.println ();
         
-        while ( reponse == 'o' ) { 
+        while ( reponse == 'o' ) {
             
             // saisie et validation du type de pari
             
             pari = lireSortePari ();
             System.out.println ();
+            
+            //Cout de pige des cartes
+            
+            montantJoueur = reduitMontantDe3( montantJoueur );
+            System.out.println ();
+            System.out.println ("La montant est déduit de 3$ pour la pige de cartes.\n");
+
             
             // saisie et validation du montant de la mise
             
@@ -283,7 +367,7 @@ public class Tp2 {
             
             // faire piger deux cartes par l'ordinateur
             
-            deuxCartes = JeuDeCartes.pigerDeuxCartes ();
+            deuxCartes = sim1.lahtte.JeuDeCartes.pigerDeuxCartes ();
             
             carte1 = deuxCartes / 100;
             carte2 = deuxCartes % 100;
@@ -325,7 +409,7 @@ public class Tp2 {
             
             // determiner si on continue ou pas
             
-            if ( montantJoueur > 0 ) {
+            if ( montantJoueur > 3 ) {
                 reponse = lireOuiNon ();
             } else {
                 System.out.println ( "Vous n'avez plus d'argent, vous ne pouvez continuer." );
@@ -339,4 +423,3 @@ public class Tp2 {
     } // main
     
 } // Tp2
-

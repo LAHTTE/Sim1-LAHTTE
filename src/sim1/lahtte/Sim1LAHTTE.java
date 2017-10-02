@@ -4,12 +4,13 @@
  * and open the template in the editor.
  */
 package sim1.lahtte;
+import java.io.IOException;
 
 /**
  *
  * @author bernard
  */
-public class Tp2 {
+public class Sim1LAHTTE {
 
     public static char lireOuiNon() {
 
@@ -34,12 +35,20 @@ public class Tp2 {
 
         System.out.println("Quel pari voulez-vous faire ?");
         System.out.print(" 1 : paire, 2 : sequence, 3 : meme couleur, 4 : somme inferieure ou egale a 7 => ");
-        reponse = sim1.lahtte.Clavier.lireInt();
+        
+        while (true){
+            try {
+                reponse = sim1.lahtte.Clavier.lireInt();
 
-        while (reponse != 1 && reponse != 2 && reponse != 3 && reponse != 4) {
-            System.out.print("*** vous devez repondre par 1, 2, 3 ou 4 : ");
-            reponse = sim1.lahtte.Clavier.lireInt();
-        }
+                while (reponse != 1 && reponse != 2 && reponse != 3 && reponse != 4) {
+                    System.out.print("*** vous devez repondre par 1, 2, 3 ou 4 : ");
+                    reponse = sim1.lahtte.Clavier.lireInt();
+                }
+                break;
+            } catch (NumberFormatException e){
+                System.out.print("*** vous devez repondre par 1, 2, 3 ou 4 : ");
+            }
+        }        
 
         return reponse;
     } // lireSortePari
@@ -54,11 +63,19 @@ public class Tp2 {
         int reponse;
 
         System.out.print("Entrez le montant dont vous disposez : ");
-        reponse = sim1.lahtte.Clavier.lireInt();
-
-        while (reponse <= 3) {
-            System.out.print("*** Le montant doit etre superieur a 3 : ");
-            reponse = sim1.lahtte.Clavier.lireInt();
+        while (true){
+            try {
+                reponse = sim1.lahtte.Clavier.lireInt();
+                
+                while (reponse <= 3){
+                    System.out.print("*** Le montant doit etre superieur a 3 : ");
+                    reponse = sim1.lahtte.Clavier.lireInt();
+                }
+                break;
+            } catch (NumberFormatException e){
+                System.err.println("Veuillez entrer un nombre entier");
+                System.out.print("Entrez le montant dont vous disposez : ");
+            }
         }
 
         return reponse;
@@ -69,12 +86,20 @@ public class Tp2 {
         int reponse;
 
         System.out.print("Entrez le montant de la mise ( maximum : " + max + " ) : ");
-        reponse = sim1.lahtte.Clavier.lireInt();
-
-        while (reponse < 0 || reponse > max) {
-            System.out.print("*** Le montant doit etre entre 0 et " + max + " : ");
-            reponse = sim1.lahtte.Clavier.lireInt();
-        }
+        while (true){
+            try {
+                reponse = sim1.lahtte.Clavier.lireInt();
+                
+                while (reponse < 0 || reponse > max) {
+                    System.out.print("*** Le montant doit etre entre 0 et " + max + " : ");
+                    reponse = sim1.lahtte.Clavier.lireInt();
+                }
+                break;
+            } catch (NumberFormatException e){
+                System.err.println("Veuillez entrer un nombre entier");
+                System.out.print("Entrez le montant de la mise ( maximum : " + max + " ) : ");
+            }
+        }  
 
         return reponse;
     } // lireMiseJoueur
@@ -140,24 +165,45 @@ public class Tp2 {
 
     } // estUneSequence
 
+    /**
+     * @param somme la somme des deux cartes
+     * @return vrai si inferieure ou egale a 7
+     *         faux sinon
+     */
     public static boolean estInferieureOuEgaleA7(int somme) {
 
         return somme <= 7;
 
     }
 
+    /**
+     * Retourne la valeur de la sorte de carte
+     * @param carte
+     * @return la valeur entiere
+     */
     public static int laValeurSorte(int carte) {
 
         return laValeur(laSorte(carte));
 
     }
 
+    /**
+     * Retourne la somme des valeurs des deux cartes
+     * @param carte1
+     * @param carte2
+     * @return la somme entiere
+     */
     public static int laSomme(int carte1, int carte2) {
 
         return laValeurSorte(carte1) + laValeurSorte(carte2);
 
     }
 
+    /**
+     * Retourne la valeur de la sorte pour le pari #4
+     * @param sorte
+     * @return la valeur entiere
+     */
     public static int laValeur(int sorte) {
 
         if (sorte == 10 || sorte == 11 || sorte == 12) {
@@ -204,13 +250,13 @@ public class Tp2 {
         }
 
         return reponse;
-    } // chaineCouleur
+    } // chaineSorte
 
     
       /**
      * Retourne le symbole de chaine sorte en unicode
      * @param carte
-     * @return {String} la symbole de sorte
+     * @return {String} le symbole de sorte
      */
     public static String symboleChaineSorte(int carte) {
 
@@ -244,7 +290,7 @@ public class Tp2 {
         /**
      * Retourne le symbole de chaine couleur en unicode
      * @param carte
-     * @return {String} la symbole
+     * @return {String} le symbole
      */
     public static String symboleChaineCouleur(int carte) {
 
@@ -279,7 +325,7 @@ public class Tp2 {
     } // afficherCarte
 
     /*
-    * Afficher la graphie des cartes
+    * Afficher le graphique des cartes
     @param int l'index de la carte
      */
     public static void afficherCarteGraphicSimple(int carte) {
@@ -320,15 +366,27 @@ public class Tp2 {
     public static void initialiserJeuDeCarte() {
 
         System.out.print("Entrez un nombre entier pour initialiser le jeu : ");
-        sim1.lahtte.JeuDeCartes.initialiserJeuDeCarte(sim1.lahtte.Clavier.lireInt());
+        int nbLu;
+        while (true){
+            try {
+                nbLu = sim1.lahtte.Clavier.lireInt();
+                sim1.lahtte.JeuDeCartes.initialiserJeuDeCarte(nbLu);
+                break;
+            } catch (NumberFormatException e){
+                System.err.println("Veuillez entrer un nombre entier");
+                System.out.print("Entrez un nombre entier pour initialiser le jeu : ");
+            }
+            
+        }
+        
         System.out.println();
 
     } // initialiserJeuDeCarte
 
     /*
-     Reduit la montant par 3$
-    @param int montant a reduit
-    @return retourne la montant restant
+     Reduit le montant par 3$
+    @param int montant a reduire
+    @return retourne le montant restant
      */
     public static int reduitMontantDe3(int montant) {
         return montant - 3;
@@ -431,4 +489,4 @@ public class Tp2 {
 
     } // main
 
-} // Tp2
+} // Sim1LAHTTE

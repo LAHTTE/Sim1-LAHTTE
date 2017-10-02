@@ -29,6 +29,9 @@ public class Sim1LAHTTE {
         return reponse;
     } // lireOuiNon
 
+    /**
+     * Amelioration apportee: Gestion des exceptions d'entrees numeriques
+     */
     public static int lireSortePari() {
 
         int reponse;
@@ -58,6 +61,9 @@ public class Sim1LAHTTE {
         System.out.print("Coût d'une pige de cartes est 3$ et\nle montant doit etre superieur a 3.\n");
     } // messageDeCoutPige
 
+    /**
+     * Amelioration apportee: Gestion des exceptions d'entrees numeriques
+     */
     public static int lireMontantJoueur() {
 
         int reponse;
@@ -81,6 +87,9 @@ public class Sim1LAHTTE {
         return reponse;
     } // lireMontantJoueur
 
+    /**
+     * Amelioration apportee: Gestion des exceptions d'entrees numeriques
+     */
     public static int lireMiseJoueur(int max) {
 
         int reponse;
@@ -363,6 +372,9 @@ public class Sim1LAHTTE {
 
     } // afficherFin
 
+    /**
+     * Amelioration apportee: Gestion des exceptions d'entrees numeriques
+     */
     public static void initialiserJeuDeCarte() {
 
         System.out.print("Entrez un nombre entier pour initialiser le jeu : ");

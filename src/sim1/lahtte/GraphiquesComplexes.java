@@ -19,11 +19,24 @@ public class GraphiquesComplexes extends JFrame {
     public GraphiquesComplexes() {
         init();
     }
+    
+    private int laCouleurImage(int couleur) {
+    /*  antecedent : 0 <= couleur <= 3
+     *  consequent : retourne la couleur associe a la l'index de la rangee de l'image
+     *
+     */
+        switch (couleur) {
+            case 0: return 2; // coeur
+            case 1: return 3; // carreau
+            case 2: return 0; // trefle
+            default: return 1; // pique
+        }
+    }
 
-    public JLabel getImageCouper(int sort, int couleur) {
+    public JLabel getImageCouper(int sorte, int couleur) {
 
-    /*  antecedent : 0 <= couleur <= 12 , 0 <= sort <= 3
-     *  consequent : retourne JLabel de l'image du carte couper
+    /*  antecedent : 0 <= sorte <= 12 , 0 <= couleur <= 3
+     *  consequent : retourne JLabel de l'image de la carte coupee
      *
      */
         
@@ -31,8 +44,10 @@ public class GraphiquesComplexes extends JFrame {
 
         JLabel imageLabel = null;
         int largeur = 72, hauteur = 98;
-        int x = (largeur + 1) * sort;
-        int y = (hauteur) * couleur;
+        System.out.println("sorte " + sorte);
+        System.out.println("couleur " + couleur);
+        int x = (largeur + 1) * sorte;
+        int y = (hauteur) * laCouleurImage(couleur);
         try {
             //l'image vient de http://www.milefoot.com/math/discrete/counting/cardfreq.htm
             imageCarte = ImageIO.read(new File("cards.png"));
@@ -45,15 +60,15 @@ public class GraphiquesComplexes extends JFrame {
         return imageLabel;
     }
 
-    public void setCartes(int sortCarte1, int couleurCarte1, int sortCarte2, int couleurCarte2) {
+    public void setCartes(int sorteCarte1, int couleurCarte1, int sorteCarte2, int couleurCarte2) {
 
-    /* antecedent : 0 <= couleurCarte1 <= 12 , 0 <= sortCarte1 <= 3 , 0 <= couleurCarte2 <= 12 , 0 <= sortCarte2 <= 3
+    /* antecedent : 0 <= sorteCarte1 <= 12 , 0 <= couleurCarte1 <= 3 , 0 <= sorteCarte2 <= 12 , 0 <= couleurCarte2 <= 3
      * consequent : modifier le graphique complexe des cartes 
      *
      */
         
-        premiereCarteLabel = getImageCouper(sortCarte1, couleurCarte1);
-        deuxiemeCarteLabel = getImageCouper(sortCarte2, couleurCarte2);
+        premiereCarteLabel = getImageCouper(sorteCarte1, couleurCarte1);
+        deuxiemeCarteLabel = getImageCouper(sorteCarte2, couleurCarte2);
         panneauCarte.removeAll();
         panneauCarte.add(premiereCarteLabel);
         panneauCarte.add(deuxiemeCarteLabel);
@@ -71,7 +86,7 @@ public class GraphiquesComplexes extends JFrame {
         setLayout(new GridLayout(2, 1));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // création du panneau de carte
+        // creation du panneau de cartes
         panneauCarte = new JPanel();
         panneauCarte.setLayout(gridPanneauCarte);
         add(panneauCarte);

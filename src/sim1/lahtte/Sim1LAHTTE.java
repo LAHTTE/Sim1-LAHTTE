@@ -1,9 +1,5 @@
 package sim1.lahtte;
 
-/**
- *
- * @author bernard
- */
 public class Sim1LAHTTE {
 
     public static char lireOuiNon() {
@@ -119,44 +115,44 @@ public class Sim1LAHTTE {
 
     public static int laCouleur(int carte) {
 
-        /* antecedent : 0 <= carte <= 51
-     * consequent : retourne la couleur de la carte (0, 1, 2, 3)
-     *              0 : coeur, 1 : carreau, 2 : trefle, 3 : pique
-         */
+     /* antecedent : 0 <= carte <= 51
+      * consequent : retourne la couleur de la carte (0, 1, 2, 3)
+      *              0 : coeur, 1 : carreau, 2 : trefle, 3 : pique
+      */
         return carte / 13;
 
     } // laCouleur
 
     public static boolean estUnePaire(int carte1, int carte2) {
 
-        /* antecedent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
+    /* antecedent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
      * consequent : retourne vrai si carte1 et carte 2 constituent une paire,
      *              faux sinon
-         */
+     */
         return laSorte(carte1) == laSorte(carte2);
 
     } // estUnePaire
 
     public static boolean sontMemeCouleur(int carte1, int carte2) {
 
-        /* antecedent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
+    /* antecedent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
      * consequent : retourne vrai si carte1 et carte 2 sont de la meme
      *              couleur.  Les 4 couleurs possibles sont : coeur, carreau,
      *              trefle et pique.
-         */
+     */
         return laCouleur(carte1) == laCouleur(carte2);
 
     } // sontMemeCouleur
 
     public static boolean estUneSequence(int carte1, int carte2) {
 
-        /* antecedent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
+     /* antecedent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
      * consequent : retourne vrai si carte1 et carte 2 forment une sequence,
      *              peu importe leur couleur, faux sinon.  Une sequence de
      *              deux cartes sont deux cartes de valeur consecutive.  L'as
      *              et le 2 sont considerees comme consecutives ainsi que l'as
      *              et le roi.
-         */
+     */
         int sorte1 = laSorte(carte1);
         int sorte2 = laSorte(carte2);
 
@@ -211,10 +207,10 @@ public class Sim1LAHTTE {
 
     public static String chaineCouleur(int carte) {
 
-        /* antecedent : 0 <= carte <= 51
-        * consequent : retourne une chaine correspondant a la couleur de la 
-        * carte
-         */
+    /* antecedent : 0 <= carte <= 51
+     * consequent : retourne une chaine correspondant a la couleur de la 
+     * carte
+     */
         String reponse;
 
         int couleur = laCouleur(carte);
@@ -233,10 +229,10 @@ public class Sim1LAHTTE {
 
     public static String chaineSorte(int carte) {
 
-        /* antecedent : 0 <= carte <= 51
-        * consequent : retourne une chaine correspondant a la sorte de la 
-        * carte
-         */
+    /* antecedent : 0 <= carte <= 51
+     * consequent : retourne une chaine correspondant a la sorte de la 
+     * carte
+     */
         String reponse;
 
         int sorte = laSorte(carte);
@@ -257,10 +253,10 @@ public class Sim1LAHTTE {
 
     public static String symboleChaineSorte(int carte) {
 
-        /* antecedent : 0 <= carte <= 51
-        * consequent : retourne la chaine correspondant au symbole de la sorte
-        * de la carte
-         */
+    /* antecedent : 0 <= carte <= 51
+     * consequent : retourne la chaine correspondant au symbole de la sorte
+     * de la carte
+     */
         String reponse;
 
         int sorte = laSorte(carte);
@@ -290,10 +286,10 @@ public class Sim1LAHTTE {
 
     public static String symboleChaineCouleur(int carte) {
 
-        /* antecedent : 0 <= carte <= 51
-        * consequent : retourne la chaine correspondant au symbole de la couleur
-        * de la carte
-         */
+    /* antecedent : 0 <= carte <= 51
+     * consequent : retourne la chaine correspondant au symbole de la couleur
+     * de la carte
+     */
         String reponse;
 
         int couleur = laCouleur(carte);
@@ -317,18 +313,18 @@ public class Sim1LAHTTE {
 
     public static void afficherCarte(int carte) {
 
-        /* antecedent : 0 <= carte <= 51
+    /* antecedent : 0 <= carte <= 51
      * consequent : affiche la carte selon sa couleur et sa valeur
-         */
+     */
         System.out.print(chaineSorte(carte) + " " + chaineCouleur(carte));
 
     } // afficherCarte
 
     public static void afficherCarteGraphicSimple(int carte) {
 
-        /* antecedent : 0 <= carte <= 51
+    /* antecedent : 0 <= carte <= 51
      * consequent : affiche le graphique de la carte
-         */
+     */
         String sorte = symboleChaineSorte(carte);
         String couleur = symboleChaineCouleur(carte);
         System.out.println(
@@ -346,17 +342,17 @@ public class Sim1LAHTTE {
 
     public static void afficherCarteGraphicComplexe(int carte1, int carte2, GraphiquesComplexes fenetre) {
 
-        /* antecedent : 0 <= carte <= 51
+    /* antecedent : 0 <= carte <= 51
      * consequent : affiche le graphique de la carte
-         */
+     */
         fenetre.setCartes(laSorte(carte1), laCouleur(carte1), laSorte(carte2), laCouleur(carte2));
     } // afficherCarteGraphicComplexe
 
     public static void afficherLesDeuxCartes(int carte1, int carte2, GraphiquesComplexes fenetre) {
 
-        /* antecedent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
+    /* antecedent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
      * consequent : affiche le graphique des deux cartes
-         */
+     */
         System.out.print("Voici la premiere carte : ");
         afficherCarte(carte1);
         afficherCarteGraphicSimple(carte1);
@@ -399,18 +395,13 @@ public class Sim1LAHTTE {
 
     } // initialiserJeuDeCarte
 
-    /*
-     Reduit le montant par 3$
-    @param int montant a reduire
-    @return retourne le montant restant
-     */
     public static int reduitMontantDe3(int montant) {
 
-        /* antecedent : -
+    /* antecedent : -
      * consequent : retourne le montant reduit de la mise de 3$
-         */
+     */
         return montant - 3;
-    }
+    } //reduitMontantDe3
 
     public static void main(String[] parametres) {
 
@@ -467,23 +458,31 @@ public class Sim1LAHTTE {
             afficherLesDeuxCartes(carte1, carte2, fenetre);
 
             // determiner si le joueur a gagne ou perdu
-            joueurGagne = false;
 
-            if (pari == 1) { // est-ce une paire ?
-                joueurGagne = estUnePaire(carte1, carte2);
-                montantGagne = 4 * mise;
-            } else if (pari == 2) { // est-ce une sequence ?
-                joueurGagne = estUneSequence(carte1, carte2);
-                montantGagne = 2 * mise;
-            } else if (pari == 3) { // deux de la meme couleur ?
-                joueurGagne = sontMemeCouleur(carte1, carte2);
-                montantGagne = mise;
-            } else { // la somme est-elle inferieure ou egale a 7 ?
-                int somme = laSomme(carte1, carte2);
-                joueurGagne = estInferieureOuEgaleA7(somme);
-                montantGagne = somme * mise;
-                System.out.println("Voici les cartes: " + laValeurSorte(carte1) + " + "
-                        + laValeurSorte(carte2) + " = " + somme);
+            switch (pari) {
+                case 1:
+                    // est-ce une paire ?
+                    joueurGagne = estUnePaire(carte1, carte2);
+                    montantGagne = 4 * mise;
+                    break;
+                case 2:
+                    // est-ce une sequence ?
+                    joueurGagne = estUneSequence(carte1, carte2);
+                    montantGagne = 2 * mise;
+                    break;
+                case 3:
+                    // deux de la meme couleur ?
+                    joueurGagne = sontMemeCouleur(carte1, carte2);
+                    montantGagne = mise;
+                    break;
+                default:
+                    // la somme est-elle inferieure ou egale a 7 ?
+                    int somme = laSomme(carte1, carte2);
+                    joueurGagne = estInferieureOuEgaleA7(somme);
+                    montantGagne = somme * mise;
+                    System.out.println("Voici les cartes: " + laValeurSorte(carte1) + " + "
+                            + laValeurSorte(carte2) + " = " + somme);
+                    break;
             }
 
             // afficher si le joueur a gagne ou perdu ainsi que son gain s'il y a lieu

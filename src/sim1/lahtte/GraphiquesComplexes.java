@@ -44,8 +44,6 @@ public class GraphiquesComplexes extends JFrame {
 
         JLabel imageLabel = null;
         int largeur = 72, hauteur = 98;
-        System.out.println("sorte " + sorte);
-        System.out.println("couleur " + couleur);
         int x = (largeur + 1) * sorte;
         int y = (hauteur) * laCouleurImage(couleur);
         try {

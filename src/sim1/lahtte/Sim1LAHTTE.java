@@ -1,5 +1,4 @@
 package sim1.lahtte;
-import java.io.IOException;
 
 /**
  *
@@ -33,8 +32,8 @@ public class Sim1LAHTTE {
 
         System.out.println("Quel pari voulez-vous faire ?");
         System.out.print(" 1 : paire, 2 : sequence, 3 : meme couleur, 4 : somme inferieure ou egale a 7 => ");
-        
-        while (true){
+
+        while (true) {
             try {
                 reponse = sim1.lahtte.Clavier.lireInt();
 
@@ -43,10 +42,10 @@ public class Sim1LAHTTE {
                     reponse = sim1.lahtte.Clavier.lireInt();
                 }
                 break;
-            } catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 System.out.print("*** vous devez repondre par 1, 2, 3 ou 4 : ");
             }
-        }        
+        }
 
         return reponse;
     } // lireSortePari
@@ -64,16 +63,16 @@ public class Sim1LAHTTE {
         int reponse;
 
         System.out.print("Entrez le montant dont vous disposez : ");
-        while (true){
+        while (true) {
             try {
                 reponse = sim1.lahtte.Clavier.lireInt();
-                
-                while (reponse <= 3){
+
+                while (reponse <= 3) {
                     System.out.print("*** Le montant doit etre superieur a 3 : ");
                     reponse = sim1.lahtte.Clavier.lireInt();
                 }
                 break;
-            } catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 System.err.println("Veuillez entrer un nombre entier");
                 System.out.print("Entrez le montant dont vous disposez : ");
             }
@@ -90,74 +89,74 @@ public class Sim1LAHTTE {
         int reponse;
 
         System.out.print("Entrez le montant de la mise ( maximum : " + max + " ) : ");
-        while (true){
+        while (true) {
             try {
                 reponse = sim1.lahtte.Clavier.lireInt();
-                
+
                 while (reponse < 0 || reponse > max) {
                     System.out.print("*** Le montant doit etre entre 0 et " + max + " : ");
                     reponse = sim1.lahtte.Clavier.lireInt();
                 }
                 break;
-            } catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 System.err.println("Veuillez entrer un nombre entier");
                 System.out.print("Entrez le montant de la mise ( maximum : " + max + " ) : ");
             }
-        }  
+        }
 
         return reponse;
     } // lireMiseJoueur
 
     public static int laSorte(int carte) {
 
-    /* antecedent : 0 <= carte <= 51
+        /* antecedent : 0 <= carte <= 51
      * consequent : retourne la valeur de la carte (0, 1, ... 12)
      *              0 : as, 1 : 2, 2 : 3, ..., 9 : 10, 10 : valet, 11 : dame, 12 : roi
-     */
+         */
         return carte % 13;
 
     } // laSorte
 
     public static int laCouleur(int carte) {
 
-    /* antecedent : 0 <= carte <= 51
+        /* antecedent : 0 <= carte <= 51
      * consequent : retourne la couleur de la carte (0, 1, 2, 3)
      *              0 : coeur, 1 : carreau, 2 : trefle, 3 : pique
-     */
+         */
         return carte / 13;
 
     } // laCouleur
 
     public static boolean estUnePaire(int carte1, int carte2) {
 
-    /* antecedent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
+        /* antecedent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
      * consequent : retourne vrai si carte1 et carte 2 constituent une paire,
      *              faux sinon
-     */
+         */
         return laSorte(carte1) == laSorte(carte2);
 
     } // estUnePaire
 
     public static boolean sontMemeCouleur(int carte1, int carte2) {
 
-    /* antecedent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
+        /* antecedent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
      * consequent : retourne vrai si carte1 et carte 2 sont de la meme
      *              couleur.  Les 4 couleurs possibles sont : coeur, carreau,
      *              trefle et pique.
-     */
+         */
         return laCouleur(carte1) == laCouleur(carte2);
 
     } // sontMemeCouleur
 
     public static boolean estUneSequence(int carte1, int carte2) {
 
-    /* antecedent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
+        /* antecedent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
      * consequent : retourne vrai si carte1 et carte 2 forment une sequence,
      *              peu importe leur couleur, faux sinon.  Une sequence de
      *              deux cartes sont deux cartes de valeur consecutive.  L'as
      *              et le 2 sont considerees comme consecutives ainsi que l'as
      *              et le roi.
-     */
+         */
         int sorte1 = laSorte(carte1);
         int sorte2 = laSorte(carte2);
 
@@ -181,29 +180,27 @@ public class Sim1LAHTTE {
 
     public static int laValeurSorte(int carte) {
 
-       /* antecedent : 0 <= carte <= 51
+        /* antecedent : 0 <= carte <= 51
         * consequent : retourne la valeur de la sorte de carte
-        */
+         */
         return laValeur(laSorte(carte));
 
     } // laValeurSorte
 
     public static int laSomme(int carte1, int carte2) {
-        
-       /* antecedent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
-        * consequent : retourne la somme des valeurs des sortes des deux cartes
-        */
 
+        /* antecedent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
+        * consequent : retourne la somme des valeurs des sortes des deux cartes
+         */
         return laValeurSorte(carte1) + laValeurSorte(carte2);
 
     } // laSomme
 
     public static int laValeur(int sorte) {
-        
-       /* antecedent : -
-        * consequent : retourne la valeur de la sorte pour le pari #4
-        */
 
+        /* antecedent : -
+        * consequent : retourne la valeur de la sorte pour le pari #4
+         */
         if (sorte == 10 || sorte == 11 || sorte == 12) {
             return 10;
         } else {
@@ -213,35 +210,33 @@ public class Sim1LAHTTE {
     } // laValeur
 
     public static String chaineCouleur(int carte) {
-        
-       /* antecedent : 0 <= carte <= 51
+
+        /* antecedent : 0 <= carte <= 51
         * consequent : retourne une chaine correspondant a la couleur de la 
         * carte
-        */
-
+         */
         String reponse;
 
         int couleur = laCouleur(carte);
         if (couleur == 0) {
-            reponse = "coeur";
-        } else if (couleur == 1) {
-            reponse = "carreau";
-        } else if (couleur == 2) {
             reponse = "trefle";
-        } else {
+        } else if (couleur == 1) {
             reponse = "pique";
+        } else if (couleur == 2) {
+            reponse = "coeur";
+        } else {
+            reponse = "carreau";
         }
 
         return reponse;
     } // chaineCouleur
 
     public static String chaineSorte(int carte) {
-        
-       /* antecedent : 0 <= carte <= 51
+
+        /* antecedent : 0 <= carte <= 51
         * consequent : retourne une chaine correspondant a la sorte de la 
         * carte
-        */
-
+         */
         String reponse;
 
         int sorte = laSorte(carte);
@@ -261,12 +256,11 @@ public class Sim1LAHTTE {
     } // chaineSorte
 
     public static String symboleChaineSorte(int carte) {
-        
-       /* antecedent : 0 <= carte <= 51
+
+        /* antecedent : 0 <= carte <= 51
         * consequent : retourne la chaine correspondant au symbole de la sorte
         * de la carte
-        */
-
+         */
         String reponse;
 
         int sorte = laSorte(carte);
@@ -287,35 +281,34 @@ public class Sim1LAHTTE {
                 reponse = "10";
                 break;
             default:
-                reponse = String.valueOf(sorte + 1)+" ";
+                reponse = String.valueOf(sorte + 1) + " ";
                 break;
         }
 
         return reponse;
     } // symboleChaineSorte
-    
+
     public static String symboleChaineCouleur(int carte) {
-        
-       /* antecedent : 0 <= carte <= 51
+
+        /* antecedent : 0 <= carte <= 51
         * consequent : retourne la chaine correspondant au symbole de la couleur
         * de la carte
-        */
-
+         */
         String reponse;
 
         int couleur = laCouleur(carte);
         switch (couleur) {
             case 0:
-                reponse = "\u2665";
-                break;
-            case 1:
-                reponse = "\u2666";
-                break;
-            case 2:
                 reponse = "\u2663";
                 break;
-            default:
+            case 1:
                 reponse = "\u2660";
+                break;
+            case 2:
+                reponse = "\u2665";
+                break;
+            default:
+                reponse = "\u2666";
                 break;
         }
 
@@ -324,18 +317,18 @@ public class Sim1LAHTTE {
 
     public static void afficherCarte(int carte) {
 
-    /* antecedent : 0 <= carte <= 51
+        /* antecedent : 0 <= carte <= 51
      * consequent : affiche la carte selon sa couleur et sa valeur
-     */
+         */
         System.out.print(chaineSorte(carte) + " " + chaineCouleur(carte));
 
     } // afficherCarte
 
     public static void afficherCarteGraphicSimple(int carte) {
-        
-    /* antecedent : 0 <= carte <= 51
+
+        /* antecedent : 0 <= carte <= 51
      * consequent : affiche le graphique de la carte
-     */
+         */
         String sorte = symboleChaineSorte(carte);
         String couleur = symboleChaineCouleur(carte);
         System.out.println(
@@ -351,12 +344,19 @@ public class Sim1LAHTTE {
                 + "\n");
     } // afficherCarteGraphicSimple
 
-    public static void afficherLesDeuxCartes(int carte1, int carte2) {
-        
-    /* antecedent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
-     * consequent : affiche le graphique des deux cartes
-     */
+    public static void afficherCarteGraphicComplexe(int carte1, int carte2, GraphiquesComplexes fenetre) {
 
+        /* antecedent : 0 <= carte <= 51
+     * consequent : affiche le graphique de la carte
+         */
+        fenetre.setCartes(laSorte(carte1), laCouleur(carte1), laSorte(carte2), laCouleur(carte2));
+    } // afficherCarteGraphicComplexe
+
+    public static void afficherLesDeuxCartes(int carte1, int carte2, GraphiquesComplexes fenetre) {
+
+        /* antecedent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
+     * consequent : affiche le graphique des deux cartes
+         */
         System.out.print("Voici la premiere carte : ");
         afficherCarte(carte1);
         afficherCarteGraphicSimple(carte1);
@@ -364,6 +364,8 @@ public class Sim1LAHTTE {
         System.out.print("Voici la deuxieme carte : ");
         afficherCarte(carte2);
         afficherCarteGraphicSimple(carte2);
+
+        afficherCarteGraphicComplexe(carte1, carte2, fenetre);
 
     } // afficherLesDeuxCartes
 
@@ -381,18 +383,18 @@ public class Sim1LAHTTE {
 
         System.out.print("Entrez un nombre entier pour initialiser le jeu : ");
         int nbLu;
-        while (true){
+        while (true) {
             try {
                 nbLu = sim1.lahtte.Clavier.lireInt();
                 sim1.lahtte.JeuDeCartes.initialiserJeuDeCarte(nbLu);
                 break;
-            } catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 System.err.println("Veuillez entrer un nombre entier");
                 System.out.print("Entrez un nombre entier pour initialiser le jeu : ");
             }
-            
+
         }
-        
+
         System.out.println();
 
     } // initialiserJeuDeCarte
@@ -403,10 +405,10 @@ public class Sim1LAHTTE {
     @return retourne le montant restant
      */
     public static int reduitMontantDe3(int montant) {
-        
-    /* antecedent : -
+
+        /* antecedent : -
      * consequent : retourne le montant reduit de la mise de 3$
-     */
+         */
         return montant - 3;
     }
 
@@ -426,6 +428,9 @@ public class Sim1LAHTTE {
 
         // Initialiser le procede aleatoire
         initialiserJeuDeCarte();
+
+        // Initialiser le Graphiques Complexes
+        GraphiquesComplexes fenetre = new GraphiquesComplexes();
 
         // Saisir et valider le montant initial du joueur
         messageDeCoutPige();
@@ -459,7 +464,7 @@ public class Sim1LAHTTE {
             carte1 = deuxCartes / 100;
             carte2 = deuxCartes % 100;
 
-            afficherLesDeuxCartes(carte1, carte2);
+            afficherLesDeuxCartes(carte1, carte2, fenetre);
 
             // determiner si le joueur a gagne ou perdu
             joueurGagne = false;

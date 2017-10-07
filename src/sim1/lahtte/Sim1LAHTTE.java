@@ -215,13 +215,13 @@ public class Sim1LAHTTE {
 
         int couleur = laCouleur(carte);
         if (couleur == 0) {
-            reponse = "trefle";
-        } else if (couleur == 1) {
-            reponse = "pique";
-        } else if (couleur == 2) {
             reponse = "coeur";
-        } else {
+        } else if (couleur == 1) {
             reponse = "carreau";
+        } else if (couleur == 2) {
+            reponse = "trefle";
+        } else {
+            reponse = "pique";
         }
 
         return reponse;
@@ -295,16 +295,16 @@ public class Sim1LAHTTE {
         int couleur = laCouleur(carte);
         switch (couleur) {
             case 0:
-                reponse = "\u2663";
-                break;
-            case 1:
-                reponse = "\u2660";
-                break;
-            case 2:
                 reponse = "\u2665";
                 break;
-            default:
+            case 1:
                 reponse = "\u2666";
+                break;
+            case 2:
+                reponse = "\u2663";
+                break;
+            default:
+                reponse = "\u2660";
                 break;
         }
 
@@ -458,7 +458,9 @@ public class Sim1LAHTTE {
             afficherLesDeuxCartes(carte1, carte2, fenetre);
 
             // determiner si le joueur a gagne ou perdu
-
+            int somme = laSomme(carte1, carte2);
+            System.out.println("Voici les cartes: " + laValeurSorte(carte1) + " + "
+                            + laValeurSorte(carte2) + " = " + somme);
             switch (pari) {
                 case 1:
                     // est-ce une paire ?
@@ -477,11 +479,8 @@ public class Sim1LAHTTE {
                     break;
                 default:
                     // la somme est-elle inferieure ou egale a 7 ?
-                    int somme = laSomme(carte1, carte2);
                     joueurGagne = estInferieureOuEgaleA7(somme);
-                    montantGagne = somme * mise;
-                    System.out.println("Voici les cartes: " + laValeurSorte(carte1) + " + "
-                            + laValeurSorte(carte2) + " = " + somme);
+                    montantGagne = somme * mise;                   
                     break;
             }
 

@@ -470,6 +470,15 @@ public class Sim1LAHTTE {
                 + " $\n");
     }
     
+    public static int determinerVictoire(int carte1, int carte2){
+            int somme = laSomme(carte1, carte2);
+            System.out.println("Voici les cartes: " + 
+                    laValeurSorte(carte1) + " + "
+                    + laValeurSorte(carte2) + " = " + somme);
+            return somme;
+    }
+    
+    
     public static int reduitMontantDe3(int montant) {
 
     /* antecedent : -
@@ -529,9 +538,7 @@ public class Sim1LAHTTE {
             afficherLesDeuxCartes(carte1, carte2, fenetre);
 
             // determiner si le joueur a gagne ou perdu
-            int somme = laSomme(carte1, carte2);
-            System.out.println("Voici les cartes: " + laValeurSorte(carte1) + " + "
-                            + laValeurSorte(carte2) + " = " + somme);
+            int somme = determinerVictoire(carte1,carte2);
             
             montantJoueur = 
                         choixDeJeu(carte1, carte2, pari, mise, montantGagne,

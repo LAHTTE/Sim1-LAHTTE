@@ -402,6 +402,20 @@ public class Sim1LAHTTE {
         return montantJoueur;
     }
     
+    public static void affichageGain (int gain,boolean gagne,int montantInitial)
+    {
+        if (gagne) {
+           System.out.println("Bravo ! Vous avez gagne " + gain + " $");
+           montantInitial = montantInitial + gain;
+        } else {
+            System.out.println("Desole ! Vous avez perdu votre mise !");
+        }    
+        
+        System.out.println();
+        System.out.println("Vous disposez maintenant de " + montantInitial + " $");
+        System.out.println();
+    }
+    
     public static int reduitMontantDe3(int montant) {
 
     /* antecedent : -
@@ -490,17 +504,9 @@ public class Sim1LAHTTE {
             }
 
             // afficher si le joueur a gagne ou perdu ainsi que son gain s'il y a lieu
-            if (joueurGagne) {
-                System.out.println("Bravo ! Vous avez gagne " + montantGagne + " $");
-                montantJoueur = montantJoueur + montantGagne;
-            } else {
-                System.out.println("Desole ! Vous avez perdu votre mise !");
-            }
-
-            System.out.println();
-            System.out.println("Vous disposez maintenant de " + montantJoueur + " $");
-            System.out.println();
-
+            affichageGain(montantGagne,joueurGagne,montantJoueur);
+                
+           
             // determiner si on continue ou pas
             if (montantJoueur > 3) {
                 reponse = lireOuiNon();

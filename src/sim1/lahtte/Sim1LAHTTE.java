@@ -407,33 +407,40 @@ public class Sim1LAHTTE {
         return reponse;
     }
     
-     public static int choixDeJeu(int carte1, int carte2,int pari, int mise, 
-            int montantGagne, boolean joueurGagne, int somme){
+    public static int jeuPaire(boolean joueurGagne, int montantGagne, 
+            int carte1, int carte2, int mise){
+        
+        joueurGagne = estUnePaire(carte1, carte2);
+        montantGagne = 4 * mise;
+        return montantGagne;
+    }
+    
+    public static int choixDeJeu(int c1, int c2,int pari, int mise, 
+            int montantGain, boolean gagne, int somme){
      
         switch (pari) {
                 case 1:
                     // est-ce une paire ?
-                    joueurGagne = estUnePaire(carte1, carte2);
-                    montantGagne = 4 * mise;
+                    montantGain = jeuPaire(gagne, montantGain, c1, c2, mise);
                     break;
                 case 2:
                     // est-ce une sequence ?
-                    joueurGagne = estUneSequence(carte1, carte2);
-                    montantGagne = 2 * mise;
+                    gagne = estUneSequence(c1, c2);
+                    montantGain = 2 * mise;
                     break;
                 case 3:
                     // deux de la meme couleur ?
-                    joueurGagne = sontMemeCouleur(carte1, carte2);
-                    montantGagne = mise;
+                    gagne = sontMemeCouleur(c1, c2);
+                    montantGain = mise;
                     break;
                 default:
                     // la somme est-elle inferieure ou egale a 7 ?
-                    joueurGagne = estInferieureOuEgaleA7(somme);
-                    montantGagne = somme * mise;                   
+                    gagne = estInferieureOuEgaleA7(somme);
+                    montantGain = somme * mise;                   
                     break;
         } 
         
-         return montantGagne;
+         return montantGain;
     }
     
     public static int validationDuMontantInitial(int montantJoueur){

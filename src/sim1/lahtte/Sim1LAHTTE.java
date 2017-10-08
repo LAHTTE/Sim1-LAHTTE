@@ -395,6 +395,19 @@ public class Sim1LAHTTE {
 
     } // initialiserJeuDeCarte
 
+    public static char affichagePourContinuer (int montantJoueur, 
+                                                  char reponse){
+        if (montantJoueur > 3) {
+            reponse = lireOuiNon();
+        } else {
+            System.out.println("Vous n'avez plus d'argent, vous ne pouvez continuer.");
+            reponse = 'n';
+        }
+        
+        return reponse;
+    }
+    
+    
     public static int validationDuMontantInitial(int montantJoueur){
         messageDeCoutPige();
         montantJoueur = lireMontantJoueur();
@@ -508,13 +521,7 @@ public class Sim1LAHTTE {
                 
            
             // determiner si on continue ou pas
-            if (montantJoueur > 3) {
-                reponse = lireOuiNon();
-            } else {
-                System.out.println("Vous n'avez plus d'argent, vous ne pouvez continuer.");
-                reponse = 'n';
-            }
-
+            reponse = affichagePourContinuer(montantJoueur, reponse);
         } // boucle de jeu
 
         afficherFin(montantJoueur);

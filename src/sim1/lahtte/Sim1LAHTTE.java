@@ -407,6 +407,34 @@ public class Sim1LAHTTE {
         return reponse;
     }
     
+     public static int choixDeJeu(int carte1, int carte2,int pari, int mise, 
+            int montantGagne, boolean joueurGagne, int somme){
+     
+        switch (pari) {
+                case 1:
+                    // est-ce une paire ?
+                    joueurGagne = estUnePaire(carte1, carte2);
+                    montantGagne = 4 * mise;
+                    break;
+                case 2:
+                    // est-ce une sequence ?
+                    joueurGagne = estUneSequence(carte1, carte2);
+                    montantGagne = 2 * mise;
+                    break;
+                case 3:
+                    // deux de la meme couleur ?
+                    joueurGagne = sontMemeCouleur(carte1, carte2);
+                    montantGagne = mise;
+                    break;
+                default:
+                    // la somme est-elle inferieure ou egale a 7 ?
+                    joueurGagne = estInferieureOuEgaleA7(somme);
+                    montantGagne = somme * mise;                   
+                    break;
+        } 
+        
+         return montantGagne;
+    }
     
     public static int validationDuMontantInitial(int montantJoueur){
         messageDeCoutPige();
@@ -415,6 +443,13 @@ public class Sim1LAHTTE {
         return montantJoueur;
     }
     
+    public static void affichageCoutDePige(int montantJoueur){
+    
+        montantJoueur = reduitMontantDe3(montantJoueur);
+        System.out.println("\nLa montant est déduit de 3$ pour la pige de "
+                + "cartes.\n");        
+    }
+            
     public static void affichageGain (int gain,boolean gagne,int montantInitial)
     {
         if (gagne) {
@@ -424,9 +459,8 @@ public class Sim1LAHTTE {
             System.out.println("Desole ! Vous avez perdu votre mise !");
         }    
         
-        System.out.println();
-        System.out.println("Vous disposez maintenant de " + montantInitial + " $");
-        System.out.println();
+        System.out.println("\nVous disposez maintenant de " + montantInitial 
+                + " $\n");
     }
     
     public static int reduitMontantDe3(int montant) {
@@ -442,14 +476,14 @@ public class Sim1LAHTTE {
         char reponse;       // saisi : pour la reponse o ou n
         int pari;           // saisi : pour la sorte de pari 1, 2 ou 3
         int montantJoueur =0;// saisi puis ajuste : montant dont dispose le joueur
-        int montantGagne;   // calcule : montant gagne selon le pari effectue
+        int montantGagne = 0;   // calcule : montant gagne selon le pari effectue
 
         int mise;           // saisi : montant mise par le joueur
         int deuxCartes;     // les deux cartes pigees par l'ordinateur
         int carte1;         // la premiere carte pigee
         int carte2;         // la deuxieme carte pigee
 
-        boolean joueurGagne;    // si le joueur a gagne ou non la partie 
+        boolean joueurGagne = false;    // si le joueur a gagne ou non la partie 
 
         // Initialiser le procede aleatoire
         initialiserJeuDeCarte();
@@ -471,9 +505,7 @@ public class Sim1LAHTTE {
             System.out.println();
 
             // Cout de pige des cartes
-            montantJoueur = reduitMontantDe3(montantJoueur);
-            System.out.println();
-            System.out.println("La montant est déduit de 3$ pour la pige de cartes.\n");
+            affichageCoutDePige(montantJoueur);
 
             // saisie et validation du montant de la mise
             mise = lireMiseJoueur(montantJoueur);
@@ -493,33 +525,14 @@ public class Sim1LAHTTE {
             int somme = laSomme(carte1, carte2);
             System.out.println("Voici les cartes: " + laValeurSorte(carte1) + " + "
                             + laValeurSorte(carte2) + " = " + somme);
-            switch (pari) {
-                case 1:
-                    // est-ce une paire ?
-                    joueurGagne = estUnePaire(carte1, carte2);
-                    montantGagne = 4 * mise;
-                    break;
-                case 2:
-                    // est-ce une sequence ?
-                    joueurGagne = estUneSequence(carte1, carte2);
-                    montantGagne = 2 * mise;
-                    break;
-                case 3:
-                    // deux de la meme couleur ?
-                    joueurGagne = sontMemeCouleur(carte1, carte2);
-                    montantGagne = mise;
-                    break;
-                default:
-                    // la somme est-elle inferieure ou egale a 7 ?
-                    joueurGagne = estInferieureOuEgaleA7(somme);
-                    montantGagne = somme * mise;                   
-                    break;
-            }
+            
+            montantJoueur = 
+                        choixDeJeu(carte1, carte2, pari, mise, montantGagne,
+                                joueurGagne,somme);
 
             // afficher si le joueur a gagne ou perdu ainsi que son gain s'il y a lieu
             affichageGain(montantGagne,joueurGagne,montantJoueur);
                 
-           
             // determiner si on continue ou pas
             reponse = affichagePourContinuer(montantJoueur, reponse);
         } // boucle de jeu

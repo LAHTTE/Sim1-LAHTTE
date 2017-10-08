@@ -395,6 +395,13 @@ public class Sim1LAHTTE {
 
     } // initialiserJeuDeCarte
 
+    public static int validationDuMontantInitial(int montantJoueur){
+        messageDeCoutPige();
+        montantJoueur = lireMontantJoueur();
+        System.out.println();
+        return montantJoueur;
+    }
+    
     public static int reduitMontantDe3(int montant) {
 
     /* antecedent : -
@@ -407,7 +414,7 @@ public class Sim1LAHTTE {
 
         char reponse;       // saisi : pour la reponse o ou n
         int pari;           // saisi : pour la sorte de pari 1, 2 ou 3
-        int montantJoueur;  // saisi puis ajuste : montant dont dispose le joueur
+        int montantJoueur =0;// saisi puis ajuste : montant dont dispose le joueur
         int montantGagne;   // calcule : montant gagne selon le pari effectue
 
         int mise;           // saisi : montant mise par le joueur
@@ -424,9 +431,7 @@ public class Sim1LAHTTE {
         GraphiquesComplexes fenetre = new GraphiquesComplexes();
 
         // Saisir et valider le montant initial du joueur
-        messageDeCoutPige();
-        montantJoueur = lireMontantJoueur();
-        System.out.println();
+        montantJoueur = validationDuMontantInitial(montantJoueur);
 
         // Boucle pour les parties
         reponse = lireOuiNon();

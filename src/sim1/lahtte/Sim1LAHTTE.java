@@ -1,4 +1,5 @@
 package sim1.lahtte;
+import java.lang.*;
 
 public class Sim1LAHTTE {
 
@@ -411,9 +412,45 @@ public class Sim1LAHTTE {
             int carte1, int carte2, int mise){
         
         joueurGagne = estUnePaire(carte1, carte2);
-        montantGagne = 4 * mise;
+        if(joueurGagne == true){
+            montantGagne = 4 * mise;
+         }
         return montantGagne;
     }
+    
+        public static int jeuDeSequence(boolean joueurGagne, int montantGagne, 
+            int carte1, int carte2, int mise){
+        
+        joueurGagne = estUneSequence(carte1, carte2);
+        if(joueurGagne == true){
+            montantGagne = 2 * mise;
+         }
+        
+        return montantGagne;
+    }
+        
+    public static int jeuDeCouleur(boolean joueurGagne, int montantGagne, 
+            int carte1, int carte2, int mise){
+        
+        joueurGagne = sontMemeCouleur(carte1, carte2);
+        if(joueurGagne == true){
+            montantGagne = mise;
+         }
+        return montantGagne;
+    }      
+    
+    public static int jeuInferieurA7(boolean joueurGagne, int montantGagne, 
+            int somme, int mise){
+        
+        joueurGagne = estInferieureOuEgaleA7(somme);
+        if(joueurGagne == true){
+           montantGagne = somme * mise;
+         }
+        return montantGagne;
+    }       
+    
+    
+    
     
     public static int choixDeJeu(int c1, int c2,int pari, int mise, 
             int montantGain, boolean gagne, int somme){
@@ -425,18 +462,15 @@ public class Sim1LAHTTE {
                     break;
                 case 2:
                     // est-ce une sequence ?
-                    gagne = estUneSequence(c1, c2);
-                    montantGain = 2 * mise;
+                    montantGain = jeuDeSequence(gagne, montantGain, c1, c2, mise);
                     break;
                 case 3:
                     // deux de la meme couleur ?
-                    gagne = sontMemeCouleur(c1, c2);
-                    montantGain = mise;
+                    montantGain = jeuDeCouleur(gagne, montantGain, c1, c2, mise);
                     break;
                 default:
                     // la somme est-elle inferieure ou egale a 7 ?
-                    gagne = estInferieureOuEgaleA7(somme);
-                    montantGain = somme * mise;                   
+                    montantGain = jeuInferieurA7(gagne,montantGain, somme, mise);
                     break;
         } 
         
@@ -457,9 +491,9 @@ public class Sim1LAHTTE {
                 + "cartes.\n");        
     }
             
-    public static void affichageGain (int gain,boolean gagne,int montantInitial)
+    public static void affichageGain (int gain,int montantInitial)
     {
-        if (gagne) {
+        if (gain != 0) {
            System.out.println("Bravo ! Vous avez gagne " + gain + " $");
            montantInitial = montantInitial + gain;
         } else {
@@ -470,8 +504,7 @@ public class Sim1LAHTTE {
                 + " $\n");
     }
     
-    public static int determinerVictoire(int carte1, int carte2){
-            int somme = laSomme(carte1, carte2);
+    public static int determinerVictoire(int carte1, int carte2, int somme){
             System.out.println("Voici les cartes: " + 
                     laValeurSorte(carte1) + " + "
                     + laValeurSorte(carte2) + " = " + somme);
@@ -492,7 +525,7 @@ public class Sim1LAHTTE {
         char reponse;       // saisi : pour la reponse o ou n
         int pari;           // saisi : pour la sorte de pari 1, 2 ou 3
         int montantJoueur =0;// saisi puis ajuste : montant dont dispose le joueur
-        int montantGagne = 0;   // calcule : montant gagne selon le pari effectue
+        int montantGagne;   // calcule : montant gagne selon le pari effectue
 
         int mise;           // saisi : montant mise par le joueur
         int deuxCartes;     // les deux cartes pigees par l'ordinateur
@@ -515,11 +548,13 @@ public class Sim1LAHTTE {
         System.out.println();
 
         while (reponse == 'o') {
-
+            
+             
             // saisie et validation du type de pari
             pari = lireSortePari();
             System.out.println();
-
+            montantGagne =0;
+            
             // Cout de pige des cartes
             affichageCoutDePige(montantJoueur);
 
@@ -538,14 +573,15 @@ public class Sim1LAHTTE {
             afficherLesDeuxCartes(carte1, carte2, fenetre);
 
             // determiner si le joueur a gagne ou perdu
-            int somme = determinerVictoire(carte1,carte2);
+            int somme = laSomme(carte1, carte2);
+            somme = determinerVictoire(carte1,carte2, somme);//*****
             
-            montantJoueur = 
+             montantGagne = 
                         choixDeJeu(carte1, carte2, pari, mise, montantGagne,
                                 joueurGagne,somme);
-
+             montantJoueur = montantJoueur + montantGagne; 
             // afficher si le joueur a gagne ou perdu ainsi que son gain s'il y a lieu
-            affichageGain(montantGagne,joueurGagne,montantJoueur);
+            affichageGain(montantGagne,montantJoueur);
                 
             // determiner si on continue ou pas
             reponse = affichagePourContinuer(montantJoueur, reponse);
@@ -553,6 +589,6 @@ public class Sim1LAHTTE {
 
         afficherFin(montantJoueur);
 
+        System.exit(0);
     } // main
-
 } // Sim1LAHTTE

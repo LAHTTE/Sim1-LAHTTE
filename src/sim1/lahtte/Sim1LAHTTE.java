@@ -7,7 +7,7 @@ public class Sim1LAHTTE {
 
         char reponse;
 
-        System.out.print("Voulez-vous jouer une partie ? ");
+        System.out.print("Voulez-vous jouer une partie? Repondez par 'o' ou 'n': ");
         reponse = sim1.lahtte.Clavier.lireChar();
         sim1.lahtte.Clavier.lireFinLigne();
 
@@ -28,7 +28,7 @@ public class Sim1LAHTTE {
         int reponse;
 
         System.out.println("Quel pari voulez-vous faire ?");
-        System.out.print(" 1 : paire, 2 : sequence, 3 : meme couleur, 4 : somme inferieure ou egale a 7 => ");
+        System.out.print(" 1 : paire, 2 : sequence, 3 : meme couleur, 4 : somme <=7:  ");
 
         while (true) {
             try {
@@ -49,7 +49,7 @@ public class Sim1LAHTTE {
 
     //Afficher message
     public static void messageDeCoutPige() {
-        System.out.print("Coût d'une pige de cartes est 3$ et\nle montant doit etre superieur a 3.\n");
+        System.out.print("Cout d'une pige de cartes est de 3$ et\nle montant doit etre superieur a 3.\n");
     } // messageDeCoutPige
 
     /**
@@ -317,7 +317,7 @@ public class Sim1LAHTTE {
     /* antecedent : 0 <= carte <= 51
      * consequent : affiche la carte selon sa couleur et sa valeur
      */
-        System.out.print(chaineSorte(carte) + " " + chaineCouleur(carte));
+        System.out.print(chaineSorte(carte) + " de " + chaineCouleur(carte));
 
     } // afficherCarte
 
@@ -459,7 +459,7 @@ public class Sim1LAHTTE {
     }
     
     public static void affichageCoutDePige(int montantJoueur) {    
-        System.out.println("\nLa montant est déduit de 3$ pour la pige de "
+        System.out.println("\nLa montant est deduit de 3$ pour la pige de "
                 + "cartes.\n");        
     }
             

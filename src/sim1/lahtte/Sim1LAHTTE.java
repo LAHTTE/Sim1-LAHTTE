@@ -329,15 +329,15 @@ public class Sim1LAHTTE {
         String sorte = symboleChaineSorte(carte);
         String couleur = symboleChaineCouleur(carte);
         System.out.println(
-                "\n┌─────────┐"
+                "\n┌─────┐"
                 + "\n│ " + sorte + "      │"
                 + "\n│         │"
                 + "\n│         │"
-                + "\n│    " + couleur + "    │"
+                + "\n│    " + couleur + "   │"
                 + "\n│         │"
                 + "\n│         │"
                 + "\n│       " + sorte + "│"
-                + "\n└─────────┘"
+                + "\n└─────┘"
                 + "\n");
     } // afficherCarteGraphicSimple
 

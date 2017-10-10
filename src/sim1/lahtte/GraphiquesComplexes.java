@@ -68,10 +68,10 @@ public class GraphiquesComplexes extends JFrame {
         premiereCarteLabel = getImageCouper(sorteCarte1, couleurCarte1);
         deuxiemeCarteLabel = getImageCouper(sorteCarte2, couleurCarte2);
         panneauCarte.removeAll();
-        JLabel premiere = new JLabel("première carte");
+        JLabel premiere = new JLabel("premiere carte");
         panneauCarte.add(premiere);
         panneauCarte.add(premiereCarteLabel);
-        JLabel deuxieme = new JLabel("deuxième carte");
+        JLabel deuxieme = new JLabel("deuxieme carte");
         panneauCarte.add(deuxieme);
         panneauCarte.add(deuxiemeCarteLabel);
         setVisible(true);
@@ -86,7 +86,6 @@ public class GraphiquesComplexes extends JFrame {
         setTitle("Cartes");
         setBounds(500, 230, 400, 250);
         setLayout(new GridLayout(2, 1));
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // creation du panneau de cartes
         panneauCarte = new JPanel();

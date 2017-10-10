@@ -1,4 +1,5 @@
 package sim1.lahtte;
+import java.lang.*;
 
 public class Sim1LAHTTE {
 
@@ -6,7 +7,7 @@ public class Sim1LAHTTE {
 
         char reponse;
 
-        System.out.print("Voulez-vous jouer une partie ? ");
+        System.out.print("Voulez-vous jouer une partie? Repondez par 'o' ou 'n': ");
         reponse = sim1.lahtte.Clavier.lireChar();
         sim1.lahtte.Clavier.lireFinLigne();
 
@@ -27,7 +28,7 @@ public class Sim1LAHTTE {
         int reponse;
 
         System.out.println("Quel pari voulez-vous faire ?");
-        System.out.print(" 1 : paire, 2 : sequence, 3 : meme couleur, 4 : somme inferieure ou egale a 7 => ");
+        System.out.print(" 1 : paire, 2 : sequence, 3 : meme couleur, 4 : somme <=7:  ");
 
         while (true) {
             try {
@@ -48,7 +49,7 @@ public class Sim1LAHTTE {
 
     //Afficher message
     public static void messageDeCoutPige() {
-        System.out.print("Coût d'une pige de cartes est 3$ et\nle montant doit etre superieur a 3.\n");
+        System.out.print("Cout d'une pige de cartes est de 3$ et\nle montant doit etre superieur a 3.\n");
     } // messageDeCoutPige
 
     /**
@@ -316,7 +317,7 @@ public class Sim1LAHTTE {
     /* antecedent : 0 <= carte <= 51
      * consequent : affiche la carte selon sa couleur et sa valeur
      */
-        System.out.print(chaineSorte(carte) + " " + chaineCouleur(carte));
+        System.out.print(chaineSorte(carte) + " de " + chaineCouleur(carte));
 
     } // afficherCarte
 
@@ -395,6 +396,91 @@ public class Sim1LAHTTE {
 
     } // initialiserJeuDeCarte
 
+    public static char affichagePourContinuer (int montantJoueur, 
+                                                  char reponse) {
+        if (montantJoueur > 3) {
+            reponse = lireOuiNon();
+        } else {
+            System.out.println("Vous n'avez plus d'argent, vous ne pouvez continuer.");
+            reponse = 'n';
+        }
+        
+        return reponse;
+    }
+    
+    public static int jeuPaire(int carte1, int carte2, int mise) {
+    
+        return estUnePaire(carte1, carte2) ? 4 * mise : 0;
+   
+    }
+    
+    public static int jeuDeSequence(int carte1, int carte2, int mise) {
+    
+        return estUneSequence(carte1, carte2) ? 2 * mise : 0;
+    
+    }
+        
+    public static int jeuDeCouleur(int carte1, int carte2, int mise) {
+
+        return sontMemeCouleur(carte1, carte2) ? mise : 0;
+    
+    }      
+    
+    public static int jeuInferieurA7(int somme, int mise) {
+        
+        return estInferieureOuEgaleA7(somme) ? somme * mise : 0;
+        
+    }       
+    
+    public static int choixDeJeu(int carte1, int carte2,int pari, int mise, 
+            int somme) {
+     
+        switch (pari) {
+                case 1:
+                    // est-ce une paire ?
+                    return jeuPaire(carte1, carte2, mise);
+                case 2:
+                    // est-ce une sequence ?
+                    return jeuDeSequence(carte1, carte2, mise);
+                case 3:
+                    // deux de la meme couleur ?
+                    return jeuDeCouleur(carte1, carte2, mise);
+                default:
+                    // la somme est-elle inferieure ou egale a 7 ?
+                    return jeuInferieurA7(somme, mise);
+        }
+    }
+    
+    public static int validationDuMontantInitial(int montantJoueur) {
+        messageDeCoutPige();
+        montantJoueur = lireMontantJoueur();
+        System.out.println();
+        return montantJoueur;
+    }
+    
+    public static void affichageCoutDePige(int montantJoueur) {    
+        System.out.println("\nLa montant est deduit de 3$ pour la pige de "
+                + "cartes.\n");        
+    }
+            
+    public static void affichageGain (int gain,int montantInitial) {
+        if (gain != 0) {
+           System.out.println("Bravo ! Vous avez gagne " + gain + " $");
+        } else {
+            System.out.println("Desole ! Vous avez perdu votre mise !");
+        }    
+        
+        System.out.println("\nVous disposez maintenant de " + montantInitial 
+                + " $\n");
+    }
+    
+    public static void affichageSommeCartes(int carte1, int carte2, int somme) {
+        System.out.println("Voici les cartes: " + 
+                laValeurSorte(carte1) + " + " + 
+                laValeurSorte(carte2) + " = " + somme);
+    }
+    
+    
     public static int reduitMontantDe3(int montant) {
 
     /* antecedent : -
@@ -407,15 +493,13 @@ public class Sim1LAHTTE {
 
         char reponse;       // saisi : pour la reponse o ou n
         int pari;           // saisi : pour la sorte de pari 1, 2 ou 3
-        int montantJoueur;  // saisi puis ajuste : montant dont dispose le joueur
+        int montantJoueur = 0;// saisi puis ajuste : montant dont dispose le joueur
         int montantGagne;   // calcule : montant gagne selon le pari effectue
 
         int mise;           // saisi : montant mise par le joueur
         int deuxCartes;     // les deux cartes pigees par l'ordinateur
         int carte1;         // la premiere carte pigee
         int carte2;         // la deuxieme carte pigee
-
-        boolean joueurGagne;    // si le joueur a gagne ou non la partie 
 
         // Initialiser le procede aleatoire
         initialiserJeuDeCarte();
@@ -424,24 +508,21 @@ public class Sim1LAHTTE {
         GraphiquesComplexes fenetre = new GraphiquesComplexes();
 
         // Saisir et valider le montant initial du joueur
-        messageDeCoutPige();
-        montantJoueur = lireMontantJoueur();
-        System.out.println();
+        montantJoueur = validationDuMontantInitial(montantJoueur);
 
         // Boucle pour les parties
         reponse = lireOuiNon();
         System.out.println();
 
-        while (reponse == 'o') {
-
+        while (reponse == 'o') { 
             // saisie et validation du type de pari
             pari = lireSortePari();
             System.out.println();
-
+            montantGagne = 0;
+            
             // Cout de pige des cartes
             montantJoueur = reduitMontantDe3(montantJoueur);
-            System.out.println();
-            System.out.println("La montant est déduit de 3$ pour la pige de cartes.\n");
+            affichageCoutDePige(montantJoueur);
 
             // saisie et validation du montant de la mise
             mise = lireMiseJoueur(montantJoueur);
@@ -459,55 +540,20 @@ public class Sim1LAHTTE {
 
             // determiner si le joueur a gagne ou perdu
             int somme = laSomme(carte1, carte2);
-            System.out.println("Voici les cartes: " + laValeurSorte(carte1) + " + "
-                            + laValeurSorte(carte2) + " = " + somme);
-            switch (pari) {
-                case 1:
-                    // est-ce une paire ?
-                    joueurGagne = estUnePaire(carte1, carte2);
-                    montantGagne = 4 * mise;
-                    break;
-                case 2:
-                    // est-ce une sequence ?
-                    joueurGagne = estUneSequence(carte1, carte2);
-                    montantGagne = 2 * mise;
-                    break;
-                case 3:
-                    // deux de la meme couleur ?
-                    joueurGagne = sontMemeCouleur(carte1, carte2);
-                    montantGagne = mise;
-                    break;
-                default:
-                    // la somme est-elle inferieure ou egale a 7 ?
-                    joueurGagne = estInferieureOuEgaleA7(somme);
-                    montantGagne = somme * mise;                   
-                    break;
-            }
-
+            affichageSommeCartes(carte1,carte2, somme);
+            
+            montantGagne = choixDeJeu(carte1, carte2, pari, mise, somme);
+            montantJoueur = montantJoueur + montantGagne; 
+            
             // afficher si le joueur a gagne ou perdu ainsi que son gain s'il y a lieu
-            if (joueurGagne) {
-                System.out.println("Bravo ! Vous avez gagne " + montantGagne + " $");
-                montantJoueur = montantJoueur + montantGagne;
-            } else {
-                System.out.println("Desole ! Vous avez perdu votre mise !");
-            }
-
-            System.out.println();
-            System.out.println("Vous disposez maintenant de " + montantJoueur + " $");
-            System.out.println();
-
+            affichageGain(montantGagne,montantJoueur);
+                
             // determiner si on continue ou pas
-            if (montantJoueur > 3) {
-                reponse = lireOuiNon();
-            } else {
-                System.out.println("Vous n'avez plus d'argent, vous ne pouvez continuer.");
-                reponse = 'n';
-            }
-
+            reponse = affichagePourContinuer(montantJoueur, reponse);
         } // boucle de jeu
 
         afficherFin(montantJoueur);
 
+        System.exit(0);
     } // main
-
 } // Sim1LAHTTE

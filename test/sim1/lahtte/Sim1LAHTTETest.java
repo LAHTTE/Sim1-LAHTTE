@@ -211,6 +211,35 @@ public class Sim1LAHTTETest {
         assertEquals(7, result);
     }
 
-
+    @org.junit.Test
+    public void testdAcceptation(){
+        System.out.println("testdAcceptation");
+        boolean result1 = Sim1LAHTTE.estUnePaire(42, 37);
+        boolean result2 = Sim1LAHTTE.estUnePaire(35, 3);
+        boolean result3 = Sim1LAHTTE.estUneSequence(40, 0);
+        boolean result4 = Sim1LAHTTE.estUneSequence(25, 30);
+        boolean result5 = Sim1LAHTTE.estUneSequence(43, 37);
+        boolean result6 = Sim1LAHTTE.estInferieureOuEgaleA7(6);
+        boolean result7 = Sim1LAHTTE.sontMemeCouleur(3, 6);
+        assertFalse(result1);
+        assertFalse(result2);
+        assertTrue(result3);
+        assertFalse(result4);
+        assertFalse(result5);
+        assertFalse(result4);
+        assertTrue(result6);
+        
+        assertEquals(0, Sim1LAHTTE.jeuPaire(42, 37, 17));
+        assertEquals(0, Sim1LAHTTE.jeuPaire(35, 1, 17));
+        assertEquals(0, Sim1LAHTTE.jeuDeSequence(25, 30, 17));
+        assertEquals(0, Sim1LAHTTE.jeuDeSequence(25, 30, 17));
+        assertEquals(40, Sim1LAHTTE.jeuDeSequence(40, 0, 20));
+        assertEquals(0, Sim1LAHTTE.jeuDeSequence(43, 37, 17));
+        
+        int somme = Sim1LAHTTE.laSomme(1, 29);
+        assertEquals(120, Sim1LAHTTE.jeuInferieurA7(somme, 20));
+        assertEquals(0, Sim1LAHTTE.jeuDeSequence(43, 37, 17));
+        assertEquals(20, Sim1LAHTTE.jeuDeCouleur(3, 6, 20));
+    }
     
 }

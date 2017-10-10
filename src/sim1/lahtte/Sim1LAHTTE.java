@@ -397,7 +397,7 @@ public class Sim1LAHTTE {
     } // initialiserJeuDeCarte
 
     public static char affichagePourContinuer (int montantJoueur, 
-                                                  char reponse){
+                                                  char reponse) {
         if (montantJoueur > 3) {
             reponse = lireOuiNon();
         } else {
@@ -409,7 +409,7 @@ public class Sim1LAHTTE {
     }
     
     public static int jeuPaire(boolean joueurGagne, int montantGagne, 
-            int carte1, int carte2, int mise){
+            int carte1, int carte2, int mise) {
         
         joueurGagne = estUnePaire(carte1, carte2);
         if(joueurGagne == true){
@@ -419,7 +419,7 @@ public class Sim1LAHTTE {
     }
     
         public static int jeuDeSequence(boolean joueurGagne, int montantGagne, 
-            int carte1, int carte2, int mise){
+            int carte1, int carte2, int mise) {
         
         joueurGagne = estUneSequence(carte1, carte2);
         if(joueurGagne == true){
@@ -430,7 +430,7 @@ public class Sim1LAHTTE {
     }
         
     public static int jeuDeCouleur(boolean joueurGagne, int montantGagne, 
-            int carte1, int carte2, int mise){
+            int carte1, int carte2, int mise) {
         
         joueurGagne = sontMemeCouleur(carte1, carte2);
         if(joueurGagne == true){
@@ -440,7 +440,7 @@ public class Sim1LAHTTE {
     }      
     
     public static int jeuInferieurA7(boolean joueurGagne, int montantGagne, 
-            int somme, int mise){
+            int somme, int mise) {
         
         joueurGagne = estInferieureOuEgaleA7(somme);
         if(joueurGagne == true){
@@ -449,11 +449,8 @@ public class Sim1LAHTTE {
         return montantGagne;
     }       
     
-    
-    
-    
     public static int choixDeJeu(int c1, int c2,int pari, int mise, 
-            int montantGain, boolean gagne, int somme){
+            int montantGain, boolean gagne, int somme) {
      
         switch (pari) {
                 case 1:
@@ -477,25 +474,21 @@ public class Sim1LAHTTE {
          return montantGain;
     }
     
-    public static int validationDuMontantInitial(int montantJoueur){
+    public static int validationDuMontantInitial(int montantJoueur) {
         messageDeCoutPige();
         montantJoueur = lireMontantJoueur();
         System.out.println();
         return montantJoueur;
     }
     
-    public static void affichageCoutDePige(int montantJoueur){
-    
-        montantJoueur = reduitMontantDe3(montantJoueur);
+    public static void affichageCoutDePige(int montantJoueur) {    
         System.out.println("\nLa montant est déduit de 3$ pour la pige de "
                 + "cartes.\n");        
     }
             
-    public static void affichageGain (int gain,int montantInitial)
-    {
+    public static void affichageGain (int gain,int montantInitial) {
         if (gain != 0) {
            System.out.println("Bravo ! Vous avez gagne " + gain + " $");
-           montantInitial = montantInitial + gain;
         } else {
             System.out.println("Desole ! Vous avez perdu votre mise !");
         }    
@@ -504,7 +497,7 @@ public class Sim1LAHTTE {
                 + " $\n");
     }
     
-    public static int determinerVictoire(int carte1, int carte2, int somme){
+    public static int determinerVictoire(int carte1, int carte2, int somme) {
             System.out.println("Voici les cartes: " + 
                     laValeurSorte(carte1) + " + "
                     + laValeurSorte(carte2) + " = " + somme);
@@ -524,7 +517,7 @@ public class Sim1LAHTTE {
 
         char reponse;       // saisi : pour la reponse o ou n
         int pari;           // saisi : pour la sorte de pari 1, 2 ou 3
-        int montantJoueur =0;// saisi puis ajuste : montant dont dispose le joueur
+        int montantJoueur = 0;// saisi puis ajuste : montant dont dispose le joueur
         int montantGagne;   // calcule : montant gagne selon le pari effectue
 
         int mise;           // saisi : montant mise par le joueur
@@ -547,15 +540,14 @@ public class Sim1LAHTTE {
         reponse = lireOuiNon();
         System.out.println();
 
-        while (reponse == 'o') {
-            
-             
+        while (reponse == 'o') { 
             // saisie et validation du type de pari
             pari = lireSortePari();
             System.out.println();
-            montantGagne =0;
+            montantGagne = 0;
             
             // Cout de pige des cartes
+            montantJoueur = reduitMontantDe3(montantJoueur);
             affichageCoutDePige(montantJoueur);
 
             // saisie et validation du montant de la mise

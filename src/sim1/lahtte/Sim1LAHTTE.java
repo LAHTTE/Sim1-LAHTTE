@@ -522,7 +522,7 @@ public class Sim1LAHTTE {
     public static void main(String[] parametres) {
 
         char reponse;       // saisi : pour la reponse o ou n
-        int pari;           // saisi : pour la sorte de pari 1, 2 ou 3
+        int pari;           // saisi : pour la sorte de pari 1, 2, 3 ou 4
         int montantJoueur = 0;// saisi puis ajuste : montant dont dispose le joueur
         int montantGagne;   // calcule : montant gagne selon le pari effectue
 
@@ -531,7 +531,7 @@ public class Sim1LAHTTE {
         int carte1;         // la premiere carte pigee
         int carte2;         // la deuxieme carte pigee
 
-        // Initialiser le jeu de carte
+        // Initialiser le jeu de cartes
         initialiserJeuDeCarte();
 
         // Initialiser l'objet GraphiqueComplexe

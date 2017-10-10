@@ -4,7 +4,7 @@ import java.util.*;   // pour pouvoir utiliser Random
 
 /**
  * Generation de cartes aleatoires.
- * Un jeu de carte contient 52 cartes.  Chacune sera representee par un nombre entre 0 et 51.
+ * Un jeu de cartes contient 52 cartes.  Chacune sera representee par un nombre entre 0 et 51.
  * 
  * @author
  * @version
@@ -18,7 +18,7 @@ public class JeuDeCartes {
         
     /*
      * antecedent : -
-     * consequent : Initialise le processus aleatoire.  Un meme germe generera les memes cartes
+     * consequent : initialise le processus aleatoire.  Un meme germe generera les memes cartes
      */
     
          generateur = new Random ( germe );

@@ -408,70 +408,47 @@ public class Sim1LAHTTE {
         return reponse;
     }
     
-    public static int jeuPaire(boolean joueurGagne, int montantGagne, 
-            int carte1, int carte2, int mise) {
-        
-        joueurGagne = estUnePaire(carte1, carte2);
-        if(joueurGagne == true){
-            montantGagne = 4 * mise;
-         }
-        return montantGagne;
+    public static int jeuPaire(int carte1, int carte2, int mise) {
+    
+        return estUnePaire(carte1, carte2) ? 4 * mise : 0;
+   
     }
     
-        public static int jeuDeSequence(boolean joueurGagne, int montantGagne, 
-            int carte1, int carte2, int mise) {
-        
-        joueurGagne = estUneSequence(carte1, carte2);
-        if(joueurGagne == true){
-            montantGagne = 2 * mise;
-         }
-        
-        return montantGagne;
+    public static int jeuDeSequence(int carte1, int carte2, int mise) {
+    
+        return estUneSequence(carte1, carte2) ? 2 * mise : 0;
+    
     }
         
-    public static int jeuDeCouleur(boolean joueurGagne, int montantGagne, 
-            int carte1, int carte2, int mise) {
-        
-        joueurGagne = sontMemeCouleur(carte1, carte2);
-        if(joueurGagne == true){
-            montantGagne = mise;
-         }
-        return montantGagne;
+    public static int jeuDeCouleur(int carte1, int carte2, int mise) {
+
+        return sontMemeCouleur(carte1, carte2) ? mise : 0;
+    
     }      
     
-    public static int jeuInferieurA7(boolean joueurGagne, int montantGagne, 
-            int somme, int mise) {
+    public static int jeuInferieurA7(int somme, int mise) {
         
-        joueurGagne = estInferieureOuEgaleA7(somme);
-        if(joueurGagne == true){
-           montantGagne = somme * mise;
-         }
-        return montantGagne;
+        return estInferieureOuEgaleA7(somme) ? somme * mise : 0;
+        
     }       
     
-    public static int choixDeJeu(int c1, int c2,int pari, int mise, 
-            int montantGain, boolean gagne, int somme) {
+    public static int choixDeJeu(int carte1, int carte2,int pari, int mise, 
+            int somme) {
      
         switch (pari) {
                 case 1:
                     // est-ce une paire ?
-                    montantGain = jeuPaire(gagne, montantGain, c1, c2, mise);
-                    break;
+                    return jeuPaire(carte1, carte2, mise);
                 case 2:
                     // est-ce une sequence ?
-                    montantGain = jeuDeSequence(gagne, montantGain, c1, c2, mise);
-                    break;
+                    return jeuDeSequence(carte1, carte2, mise);
                 case 3:
                     // deux de la meme couleur ?
-                    montantGain = jeuDeCouleur(gagne, montantGain, c1, c2, mise);
-                    break;
+                    return jeuDeCouleur(carte1, carte2, mise);
                 default:
                     // la somme est-elle inferieure ou egale a 7 ?
-                    montantGain = jeuInferieurA7(gagne,montantGain, somme, mise);
-                    break;
-        } 
-        
-         return montantGain;
+                    return jeuInferieurA7(somme, mise);
+        }
     }
     
     public static int validationDuMontantInitial(int montantJoueur) {
@@ -497,11 +474,10 @@ public class Sim1LAHTTE {
                 + " $\n");
     }
     
-    public static int determinerVictoire(int carte1, int carte2, int somme) {
-            System.out.println("Voici les cartes: " + 
-                    laValeurSorte(carte1) + " + "
-                    + laValeurSorte(carte2) + " = " + somme);
-            return somme;
+    public static void affichageSommeCartes(int carte1, int carte2, int somme) {
+        System.out.println("Voici les cartes: " + 
+                laValeurSorte(carte1) + " + " + 
+                laValeurSorte(carte2) + " = " + somme);
     }
     
     
@@ -524,8 +500,6 @@ public class Sim1LAHTTE {
         int deuxCartes;     // les deux cartes pigees par l'ordinateur
         int carte1;         // la premiere carte pigee
         int carte2;         // la deuxieme carte pigee
-
-        boolean joueurGagne = false;    // si le joueur a gagne ou non la partie 
 
         // Initialiser le procede aleatoire
         initialiserJeuDeCarte();
@@ -566,12 +540,11 @@ public class Sim1LAHTTE {
 
             // determiner si le joueur a gagne ou perdu
             int somme = laSomme(carte1, carte2);
-            somme = determinerVictoire(carte1,carte2, somme);//*****
+            affichageSommeCartes(carte1,carte2, somme);
             
-             montantGagne = 
-                        choixDeJeu(carte1, carte2, pari, mise, montantGagne,
-                                joueurGagne,somme);
-             montantJoueur = montantJoueur + montantGagne; 
+            montantGagne = choixDeJeu(carte1, carte2, pari, mise, somme);
+            montantJoueur = montantJoueur + montantGagne; 
+            
             // afficher si le joueur a gagne ou perdu ainsi que son gain s'il y a lieu
             affichageGain(montantGagne,montantJoueur);
                 

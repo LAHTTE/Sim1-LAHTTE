@@ -3,6 +3,9 @@ import java.lang.*;
 
 public class Sim1LAHTTE {
 
+    /**
+     * Amelioration apportee: Affichage de messages plus precis
+     */
     public static char lireOuiNon() {
 
         char reponse;
@@ -18,6 +21,7 @@ public class Sim1LAHTTE {
         }
 
         return reponse;
+        
     } // lireOuiNon
 
     /**
@@ -45,11 +49,13 @@ public class Sim1LAHTTE {
         }
 
         return reponse;
+        
     } // lireSortePari
 
-    //Afficher message
     public static void messageDeCoutPige() {
+        
         System.out.print("Cout d'une pige de cartes est de 3$ et\nle montant doit etre superieur a 3.\n");
+        
     } // messageDeCoutPige
 
     /**
@@ -76,6 +82,7 @@ public class Sim1LAHTTE {
         }
 
         return reponse;
+        
     } // lireMontantJoueur
 
     /**
@@ -102,14 +109,15 @@ public class Sim1LAHTTE {
         }
 
         return reponse;
+        
     } // lireMiseJoueur
 
     public static int laSorte(int carte) {
 
-        /* antecedent : 0 <= carte <= 51
+    /* antecedent : 0 <= carte <= 51
      * consequent : retourne la valeur de la carte (0, 1, ... 12)
      *              0 : as, 1 : 2, 2 : 3, ..., 9 : 10, 10 : valet, 11 : dame, 12 : roi
-         */
+     */
         return carte % 13;
 
     } // laSorte
@@ -127,7 +135,7 @@ public class Sim1LAHTTE {
     public static boolean estUnePaire(int carte1, int carte2) {
 
     /* antecedent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
-     * consequent : retourne vrai si carte1 et carte 2 constituent une paire,
+     * consequent : retourne vrai si carte1 et carte2 constituent une paire,
      *              faux sinon
      */
         return laSorte(carte1) == laSorte(carte2);
@@ -137,8 +145,8 @@ public class Sim1LAHTTE {
     public static boolean sontMemeCouleur(int carte1, int carte2) {
 
     /* antecedent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
-     * consequent : retourne vrai si carte1 et carte 2 sont de la meme
-     *              couleur.  Les 4 couleurs possibles sont : coeur, carreau,
+     * consequent : retourne vrai si carte1 et carte2 sont de la meme
+     *              couleur. Les 4 couleurs possibles sont : coeur, carreau,
      *              trefle et pique.
      */
         return laCouleur(carte1) == laCouleur(carte2);
@@ -147,8 +155,8 @@ public class Sim1LAHTTE {
 
     public static boolean estUneSequence(int carte1, int carte2) {
 
-     /* antecedent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
-     * consequent : retourne vrai si carte1 et carte 2 forment une sequence,
+    /* antecedent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
+     * consequent : retourne vrai si carte1 et carte2 forment une sequence,
      *              peu importe leur couleur, faux sinon.  Une sequence de
      *              deux cartes sont deux cartes de valeur consecutive.  L'as
      *              et le 2 sont considerees comme consecutives ainsi que l'as
@@ -167,37 +175,37 @@ public class Sim1LAHTTE {
 
     public static boolean estInferieureOuEgaleA7(int somme) {
 
-        /*  antecedent : -
-         *  consequent : retourne vrai si la somme est inferieure ou egale a 7,
-         *               sinon retourne faux
-         */
+    /*  antecedent : -
+     *  consequent : retourne vrai si la somme est inferieure ou egale a 7,
+     *               sinon retourne faux
+     */
         return somme <= 7;
 
     } // estInferieureOuEgaleA7
 
     public static int laValeurSorte(int carte) {
 
-        /* antecedent : 0 <= carte <= 51
-        * consequent : retourne la valeur de la sorte de carte
-         */
+    /* antecedent : 0 <= carte <= 51
+     * consequent : retourne la valeur de la sorte de carte
+     */
         return laValeur(laSorte(carte));
 
     } // laValeurSorte
 
     public static int laSomme(int carte1, int carte2) {
 
-        /* antecedent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
-        * consequent : retourne la somme des valeurs des sortes des deux cartes
-         */
+    /* antecedent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
+     * consequent : retourne la somme des valeurs des sortes des deux cartes
+     */
         return laValeurSorte(carte1) + laValeurSorte(carte2);
 
     } // laSomme
 
     public static int laValeur(int sorte) {
 
-        /* antecedent : -
-        * consequent : retourne la valeur de la sorte pour le pari #4
-         */
+    /* antecedent : -
+     * consequent : retourne la valeur de la sorte
+     */
         if (sorte == 10 || sorte == 11 || sorte == 12) {
             return 10;
         } else {
@@ -226,6 +234,7 @@ public class Sim1LAHTTE {
         }
 
         return reponse;
+        
     } // chaineCouleur
 
     public static String chaineSorte(int carte) {
@@ -250,6 +259,7 @@ public class Sim1LAHTTE {
         }
 
         return reponse;
+        
     } // chaineSorte
 
     public static String symboleChaineSorte(int carte) {
@@ -283,6 +293,7 @@ public class Sim1LAHTTE {
         }
 
         return reponse;
+        
     } // symboleChaineSorte
 
     public static String symboleChaineCouleur(int carte) {
@@ -310,6 +321,7 @@ public class Sim1LAHTTE {
         }
 
         return reponse;
+        
     } // symboleChaineCouleur
 
     public static void afficherCarte(int carte) {
@@ -339,14 +351,16 @@ public class Sim1LAHTTE {
                 + "\n│       " + sorte + "│"
                 + "\n└─────┘"
                 + "\n");
+        
     } // afficherCarteGraphicSimple
 
     public static void afficherCarteGraphicComplexe(int carte1, int carte2, GraphiquesComplexes fenetre) {
 
-    /* antecedent : 0 <= carte <= 51
+    /* antecedent : 0 <= carte1 <= 51, 0 <= carte2 <= 51
      * consequent : affiche le graphique de la carte
      */
         fenetre.setCartes(laSorte(carte1), laCouleur(carte1), laSorte(carte2), laCouleur(carte2));
+        
     } // afficherCarteGraphicComplexe
 
     public static void afficherLesDeuxCartes(int carte1, int carte2, GraphiquesComplexes fenetre) {
@@ -396,8 +410,8 @@ public class Sim1LAHTTE {
 
     } // initialiserJeuDeCarte
 
-    public static char affichagePourContinuer (int montantJoueur, 
-                                                  char reponse) {
+    public static char affichagePourContinuer (int montantJoueur, char reponse) {
+        
         if (montantJoueur > 3) {
             reponse = lireOuiNon();
         } else {
@@ -406,64 +420,76 @@ public class Sim1LAHTTE {
         }
         
         return reponse;
-    }
+        
+    } // affichagePourContinuer
     
     public static int jeuPaire(int carte1, int carte2, int mise) {
     
         return estUnePaire(carte1, carte2) ? 4 * mise : 0;
    
-    }
+    } // jeuPaire
     
     public static int jeuDeSequence(int carte1, int carte2, int mise) {
     
         return estUneSequence(carte1, carte2) ? 2 * mise : 0;
     
-    }
+    } // jeuDeSequence
         
     public static int jeuDeCouleur(int carte1, int carte2, int mise) {
 
         return sontMemeCouleur(carte1, carte2) ? mise : 0;
     
-    }      
+    } // jeuDeCouleur
     
     public static int jeuInferieurA7(int somme, int mise) {
         
         return estInferieureOuEgaleA7(somme) ? somme * mise : 0;
         
-    }       
+    } // jeuInferieurA7
     
-    public static int choixDeJeu(int carte1, int carte2,int pari, int mise, 
+    public static int choixDeJeu(int carte1, int carte2, int pari, int mise, 
             int somme) {
+        
+    /* antecedent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51, 1 <= pari <= 4
+     * consequent : retourne le montant gagne selon le pari,
+     *              sinon retourne 0 dans le cas de perte d'un pari
+     */
      
         switch (pari) {
+                // est-ce une paire?
                 case 1:
-                    // est-ce une paire ?
                     return jeuPaire(carte1, carte2, mise);
-                case 2:
-                    // est-ce une sequence ?
+                // est-ce une sequence?
+                case 2: 
                     return jeuDeSequence(carte1, carte2, mise);
-                case 3:
-                    // deux de la meme couleur ?
+                // deux de la meme couleur?
+                case 3:         
                     return jeuDeCouleur(carte1, carte2, mise);
-                default:
-                    // la somme est-elle inferieure ou egale a 7 ?
+                // la somme est-elle inferieure ou egale a 7?
+                default:  
                     return jeuInferieurA7(somme, mise);
         }
-    }
+    } // choixDeJeu
     
     public static int validationDuMontantInitial(int montantJoueur) {
+        
         messageDeCoutPige();
         montantJoueur = lireMontantJoueur();
         System.out.println();
+        
         return montantJoueur;
+        
     }
     
     public static void affichageCoutDePige(int montantJoueur) {    
+        
         System.out.println("\nLa montant est deduit de 3$ pour la pige de "
-                + "cartes.\n");        
-    }
+                + "cartes.\n");    
+        
+    } // affichageCoutDePige
             
-    public static void affichageGain (int gain,int montantInitial) {
+    public static void affichageGain(int gain,int montantInitial) {
+        
         if (gain != 0) {
            System.out.println("Bravo ! Vous avez gagne " + gain + " $");
         } else {
@@ -472,13 +498,16 @@ public class Sim1LAHTTE {
         
         System.out.println("\nVous disposez maintenant de " + montantInitial 
                 + " $\n");
-    }
+        
+    } // affichageGain
     
     public static void affichageSommeCartes(int carte1, int carte2, int somme) {
+        
         System.out.println("Voici les cartes: " + 
                 laValeurSorte(carte1) + " + " + 
                 laValeurSorte(carte2) + " = " + somme);
-    }
+        
+    } // affichageSommeCartes
     
     
     public static int reduitMontantDe3(int montant) {
@@ -487,6 +516,7 @@ public class Sim1LAHTTE {
      * consequent : retourne le montant reduit de la mise de 3$
      */
         return montant - 3;
+        
     } //reduitMontantDe3
 
     public static void main(String[] parametres) {
@@ -501,21 +531,20 @@ public class Sim1LAHTTE {
         int carte1;         // la premiere carte pigee
         int carte2;         // la deuxieme carte pigee
 
-        // Initialiser le procede aleatoire
+        // Initialiser le jeu de carte
         initialiserJeuDeCarte();
 
-        // Initialiser le Graphiques Complexes
+        // Initialiser l'objet GraphiqueComplexe
         GraphiquesComplexes fenetre = new GraphiquesComplexes();
 
         // Saisir et valider le montant initial du joueur
         montantJoueur = validationDuMontantInitial(montantJoueur);
 
-        // Boucle pour les parties
         reponse = lireOuiNon();
         System.out.println();
 
         while (reponse == 'o') { 
-            // saisie et validation du type de pari
+            // Saisie et validation du type de pari
             pari = lireSortePari();
             System.out.println();
             montantGagne = 0;
@@ -524,13 +553,13 @@ public class Sim1LAHTTE {
             montantJoueur = reduitMontantDe3(montantJoueur);
             affichageCoutDePige(montantJoueur);
 
-            // saisie et validation du montant de la mise
+            // Saisie et validation du montant de la mise
             mise = lireMiseJoueur(montantJoueur);
             System.out.println();
 
             montantJoueur = montantJoueur - mise;
 
-            // faire piger deux cartes par l'ordinateur
+            // Faire la pige de deux cartes
             deuxCartes = sim1.lahtte.JeuDeCartes.pigerDeuxCartes();
 
             carte1 = deuxCartes / 100;
@@ -538,19 +567,20 @@ public class Sim1LAHTTE {
 
             afficherLesDeuxCartes(carte1, carte2, fenetre);
 
-            // determiner si le joueur a gagne ou perdu
+            // Calcul et affiche la somme des cartes
             int somme = laSomme(carte1, carte2);
             affichageSommeCartes(carte1,carte2, somme);
             
+            // Determiner si le joueur a gagne ou perdu
             montantGagne = choixDeJeu(carte1, carte2, pari, mise, somme);
             montantJoueur = montantJoueur + montantGagne; 
             
-            // afficher si le joueur a gagne ou perdu ainsi que son gain s'il y a lieu
-            affichageGain(montantGagne,montantJoueur);
+            // Afficher si le joueur a gagne ou perdu ainsi que son gain s'il y a lieu
+            affichageGain(montantGagne, montantJoueur);
                 
-            // determiner si on continue ou pas
+            // Determiner si on continue ou pas
             reponse = affichagePourContinuer(montantJoueur, reponse);
-        } // boucle de jeu
+        }
 
         afficherFin(montantJoueur);
 

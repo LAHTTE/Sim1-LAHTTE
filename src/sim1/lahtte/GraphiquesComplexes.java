@@ -9,6 +9,10 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+/**
+ * Amelioration apportee: Creation d'une classe GraphiquesComplexes
+ * afin d'améliorer la modularite 
+ */
 public class GraphiquesComplexes extends JFrame {
 
     JPanel panneauCarte;
@@ -35,7 +39,7 @@ public class GraphiquesComplexes extends JFrame {
 
     public JLabel getImageCouper(int sorte, int couleur) {
 
-    /*  antecedent : 0 <= sorte <= 12 , 0 <= couleur <= 3
+    /*  antecedent : 0 <= sorte <= 12, 0 <= couleur <= 3
      *  consequent : retourne JLabel de l'image de la carte coupee
      *
      */
@@ -60,7 +64,7 @@ public class GraphiquesComplexes extends JFrame {
 
     public void setCartes(int sorteCarte1, int couleurCarte1, int sorteCarte2, int couleurCarte2) {
 
-    /* antecedent : 0 <= sorteCarte1 <= 12 , 0 <= couleurCarte1 <= 3 , 0 <= sorteCarte2 <= 12 , 0 <= couleurCarte2 <= 3
+    /* antecedent : 0 <= sorteCarte1 <= 12, 0 <= couleurCarte1 <= 3, 0 <= sorteCarte2 <= 12, 0 <= couleurCarte2 <= 3
      * consequent : modifier le graphique complexe des cartes 
      *
      */
